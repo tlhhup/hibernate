@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.hibernate.entity">
+    <class name="User" table="users">
+        <!-- 配置在id之前 -->
+        <cache usage="read-only"/>
+        <id name="id" column="id" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="name" column="name" length="50" type="string"/>
+        <property name="address" column="address" length="100" type="string"/>
+        
+        <!-- 多对多关系 中间表 -->
+        <set name="roles" table="user_role_links">
+            <key column="uId"/>
+            <many-to-many column="rId" class="Role"/>
+        </set>
+    </class>
+</hibernate-mapping>
